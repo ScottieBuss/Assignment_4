@@ -8,28 +8,65 @@ int extraMemoryAllocated;
 // extraMemoryAllocated counts bytes of extra memory allocated
 void mergeSort(int pData[], int l, int r)
 {
-	
+    if (l < r) 
+    {
+        int mid = l + (r - l) / 2;
+        mergeSort(arr, l, mid);
+        mergeSort(arr, mid + 1, r);
+        merge(arr, l, mid, r);
+    }
 }
 
 // implement insertion sort
 // extraMemoryAllocated counts bytes of memory allocated
 void insertionSort(int* pData, int n)
 {
-	
+    int i, temp, j;
+
+    // iterate over the array
+    for (i = 1; i < n; i++) {
+        temp = pData[i];
+        j = i - 1;
+
+        while (j >= 0 && pData[j] > temp) {
+            pData[j + 1] = pData[j];
+            j = j - 1;
+            extraMemoryAllocated += sizeof(int);
+        }
+    }
 }
 
 // implement bubble sort
 // extraMemoryAllocated counts bytes of extra memory allocated
 void bubbleSort(int* pData, int n)
 {
-	
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (pData[j] > pData[j + 1]) {
+                int temp = pData[j];
+                pData[j] = pData[j + 1];
+                pData[j + 1] = temp;
+            }
+        }
+    }
 }
 
 // implement selection sort
 // extraMemoryAllocated counts bytes of extra memory allocated
 void selectionSort(int* pData, int n)
 {
-	
+    int i, j, min, temp;
+    for (i = 0; i < n - 1; i++) {
+        min = i;
+        for (j = i + 1; j < n; j++) {
+            if (pData[j] < pData[min]) {
+                min = j;
+            }
+        }
+        temp = pData[i];
+        pData[i] = pData[min];
+        pData[min] = temp;
+    }
 }
 
 // parses input file to an integer array
